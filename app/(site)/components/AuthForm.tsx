@@ -55,6 +55,7 @@ export default function AuthForm() {
                         <Input
                             id={'name'}
                             label='Name'
+                            disabled={isLoading}
                             register={register}
                             errors={errors}/>
                     )}
@@ -62,12 +63,14 @@ export default function AuthForm() {
                     <Input
                         id={'email'}
                         label='Email'
+                        disabled={isLoading}
                         register={register}
                         errors={errors}/>
                     <Input
                         id={'password'}
                         label='Password'
                         type={'password'}
+                        disabled={isLoading}
                         register={register}
                         errors={errors}/>
                     
@@ -97,9 +100,11 @@ export default function AuthForm() {
                     <div className={'mt-6 flex gap-2'}>
                         <AuthSocialButton
                             icon={BsGithub}
+                            disabled={isLoading}
                             onClick={() => _socialAction('github')}/>
                         <AuthSocialButton
                             icon={BsGoogle}
+                            disabled={isLoading}
                             onClick={() => _socialAction('google')}/>
                     </div>
                 </div>
