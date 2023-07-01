@@ -1,10 +1,9 @@
-"use client";
-
-import Button from "@messenger-clone/app/components/buttons";
-import {signOut} from "next-auth/react";
+import EmptyState from "@messenger-clone/app/components/EmptyState";
 
 export default function Users() {
 	return (
-		<Button onClick={() => signOut()}>LOG OUT</Button>
+		<div className={'hidden lg:block lg:pl-80 h-full'}>
+			<EmptyState />
+		</div>
 	)
 }
