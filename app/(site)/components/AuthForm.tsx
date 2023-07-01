@@ -77,7 +77,7 @@ export default function AuthForm() {
                     <div>
                         <Button
                             disabled={isLoading}
-                            fullWidth
+                            fullwidth
                             type='submit'>
                             {variant == 'LOGIN' ? 'Sign in' : 'Register'}
                         </Button>
