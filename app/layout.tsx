@@ -10,19 +10,19 @@ export const metadata = {
 	description: 'This is a clone of messenger',
 }
 
-export default function RootLayout({
-																		 children,
-																	 }: {
+interface Props {
 	children: React.ReactNode
-}) {
+}
+
+export default function RootLayout({children}: Props) {
 	return (
 		<html lang="en">
-			<body className={inter.className}>
-				<AuthContext>
-					{children}
-					<ToasterContext/>
-				</AuthContext>
-			</body>
+		<body className={inter.className}>
+		<AuthContext>
+			{children}
+			<ToasterContext/>
+		</AuthContext>
+		</body>
 		</html>
 	)
 }

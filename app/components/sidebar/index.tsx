@@ -10,12 +10,12 @@ export default async function Sidebar({children}: Props) {
 	const currentUser = await getCurrentUser()
 
 	return (
-		<aside className={'h-full'}>
+		<div className={'h-full'}>
 			<DesktopSidebar currentUser={currentUser!} />
 			<MobileNavigation />
 			<main className={'lg:pl-20 h-full'}>
 				{children}
 			</main>
-		</aside>
+		</div>
 	)
 }
