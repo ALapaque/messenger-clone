@@ -25,7 +25,7 @@ export default function AuthForm() {
 
 			router.push('/users')
 		}
-	}, [session?.status, router])
+	}, [session, session?.status, router])
 
 	const _toggleVariant = useCallback(() => {
 		variant === 'LOGIN' ? setVariant('REGISTER') : setVariant('LOGIN')
