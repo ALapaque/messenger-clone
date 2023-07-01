@@ -4,7 +4,7 @@ import clsx from "clsx";
 interface ButtonProps {
     children?: ReactNode,
     type?: 'button' | 'submit' | 'reset';
-    fullwidth?: boolean;
+    fullWidth?: boolean;
     onClick?(): void;
     secondary?: boolean;
     danger?: boolean;
@@ -27,7 +27,7 @@ export default function Button({children, ...otherProps}: ButtonProps){
             focus-visible:outline-offset-2
             `,
             otherProps.disabled && 'opacity-50 cursor-default',
-            otherProps.fullwidth && 'w-full',
+            otherProps.fullWidth && 'w-full',
             otherProps.secondary ? 'text-gray-900' : 'text-white',
             otherProps.danger && 'bg-rose-500 hover:bg-rose-600 focus-visible:outline-rose-600',
             !otherProps.secondary && !otherProps.danger && 'bg-sky-500 hover:bg-sky-600 focus-visible:outline-sky-600'

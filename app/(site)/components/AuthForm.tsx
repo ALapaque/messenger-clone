@@ -6,6 +6,7 @@ import Input from "@messenger-clone/app/components/fields/input/Input";
 import Button from "@messenger-clone/app/components/buttons";
 import {BsGithub, BsGoogle} from "react-icons/bs";
 import AuthSocialButton from "@messenger-clone/app/(site)/components/AuthSocialButton";
+import axios from "axios";
 
 type Variant = 'LOGIN' | 'REGISTER';
 
@@ -33,12 +34,10 @@ export default function AuthForm() {
         setIsLoading(true)
 
         if (variant === 'REGISTER') {
-            // axios register
+            axios.post('/api/register', data)
+        } else {
 
-            return
         }
-
-        // axios signin    
     }
 
     const _socialAction = (action: string) => {
@@ -77,7 +76,7 @@ export default function AuthForm() {
                     <div>
                         <Button
                             disabled={isLoading}
-                            fullwidth
+                            fullWidth={true}
                             type='submit'>
                             {variant == 'LOGIN' ? 'Sign in' : 'Register'}
                         </Button>
