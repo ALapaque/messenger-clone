@@ -50,17 +50,26 @@ export default function AuthForm() {
 					if (callback?.error) {
 						toast.error('Invalid credentials')
 					} else if (callback?.ok) {
-						toast.success('Welcome')
+						toast.success('Welcome!')
 					}
 				})
 				.finally(() => {setIsLoading(false)})
 		}
 	}
 
-	const _socialAction = (action: string) => {
+	const _socialAction = (action: 'github' | 'google') => {
 		setIsLoading(true)
 
 		// Next auth Social sign in
+		signIn(action, { redirect: false})
+			.then((callback) => {
+				if (callback?.error) {
+					toast.error('Invalid credentials')
+				} else if (callback?.ok) {
+					toast.success('Welcome!')
+				}
+			})
+			.finally(() => {setIsLoading(false)})
 	}
 
 	return (
