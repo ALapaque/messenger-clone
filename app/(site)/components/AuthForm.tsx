@@ -1,6 +1,6 @@
 'use client';
 
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import Input from "@messenger-clone/app/components/fields/input/Input";
 import Button from "@messenger-clone/app/components/buttons";
@@ -8,13 +8,24 @@ import {BsGithub, BsGoogle} from "react-icons/bs";
 import AuthSocialButton from "@messenger-clone/app/(site)/components/AuthSocialButton";
 import axios from "axios";
 import {toast} from "react-hot-toast";
-import {signIn} from "next-auth/react";
+import {signIn, useSession} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 type Variant = 'LOGIN' | 'REGISTER';
 
 export default function AuthForm() {
+	const session = useSession()
+	const router = useRouter()
 	const [variant, setVariant] = useState<Variant>('LOGIN')
 	const [isLoading, setIsLoading] = useState<boolean>(false)
+
+	useEffect(() => {
+		if (session.status === 'authenticated') {
+			console.log('AUTHENTICATED', session)
+
+			router.push('/users')
+		}
+	}, [session?.status, router])
 
 	const _toggleVariant = useCallback(() => {
 		variant === 'LOGIN' ? setVariant('REGISTER') : setVariant('LOGIN')
@@ -37,10 +48,15 @@ export default function AuthForm() {
 
 		if (variant === 'REGISTER') {
 			axios.post('/api/register', data)
+				.then(() => {
+					signIn('credentials', data)
+				})
 				.catch(() => {
 					toast.error('Something went wrong')
 				})
-				.finally(() => {setIsLoading(false)})
+				.finally(() => {
+					setIsLoading(false)
+				})
 		} else {
 			signIn('credentials', {
 				...data,
@@ -51,9 +67,12 @@ export default function AuthForm() {
 						toast.error('Invalid credentials')
 					} else if (callback?.ok) {
 						toast.success('Welcome!')
+						router.push('/users')
 					}
 				})
-				.finally(() => {setIsLoading(false)})
+				.finally(() => {
+					setIsLoading(false)
+				})
 		}
 	}
 
@@ -61,7 +80,7 @@ export default function AuthForm() {
 		setIsLoading(true)
 
 		// Next auth Social sign in
-		signIn(action, { redirect: false})
+		signIn(action, {redirect: false})
 			.then((callback) => {
 				if (callback?.error) {
 					toast.error('Invalid credentials')
@@ -69,7 +88,9 @@ export default function AuthForm() {
 					toast.success('Welcome!')
 				}
 			})
-			.finally(() => {setIsLoading(false)})
+			.finally(() => {
+				setIsLoading(false)
+			})
 	}
 
 	return (
