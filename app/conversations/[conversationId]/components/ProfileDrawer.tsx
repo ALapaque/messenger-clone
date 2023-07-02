@@ -47,7 +47,7 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<div className="fixed inset-0 bg-black bg-opacity-40" />
+					<div className="fixed inset-0 bg-black bg-opacity-40"/>
 				</Transition.Child>
 
 				<div className="fixed inset-0 overflow-hidden">
@@ -73,7 +73,7 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 														onClick={onClose}
 													>
 														<span className="sr-only">Close panel</span>
-														<IoClose size={24} aria-hidden="true" />
+														<IoClose size={24} aria-hidden="true"/>
 													</button>
 												</div>
 											</div>
@@ -81,7 +81,7 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 										<div className="relative mt-6 flex-1 px-4 sm:px-6">
 											<div className="flex flex-col items-center">
 												<div className="mb-2">
-													{conversation.isGroup ? <></> : <Avatar user={otherUser} />}
+													{conversation.isGroup ? <></> : <Avatar user={otherUser}/>}
 												</div>
 												<div>
 													{title}
@@ -90,14 +90,17 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 													{statusText}
 												</div>
 												<div className="flex gap-10 my-8">
-													<div onClick={() => {}} className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75">
-														<div className="w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center">
-															<IoTrash size={20} />
+													<button
+														type={'button'}
+														onClick={() => {
+														}}
+														className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75">
+														<div
+															className="w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center">
+															<IoTrash size={20}/>
 														</div>
-														<div className="text-sm text-rose-500">
-															Delete
-														</div>
-													</div>
+														<span className="text-sm text-rose-500">Delete</span>
+													</button>
 												</div>
 												<div className="w-full pb-5 pt-5 sm:px-0 sm:pt-0">
 													<dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
@@ -153,7 +156,7 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 														)}
 														{!conversation.isGroup && (
 															<>
-																<hr />
+																<hr/>
 																<div>
 																	<dt
 																		className="
