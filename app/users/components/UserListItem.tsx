@@ -3,6 +3,7 @@ import {useRouter} from "next/navigation";
 import {useCallback, useState} from "react";
 import axios from "axios";
 import Avatar from "@messenger-clone/app/components/Avatar";
+import {format} from "util";
 
 interface UserListItemProps {
 	user: User
@@ -26,9 +27,9 @@ export default function UserListItem({user}: UserListItemProps) {
 
 	return (
 		<div
-		onClick={_handleClick}
-		className={'w-full relative flex items-center space-x-3 bg-white p-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer'}>
-			<Avatar user={user} />
+			onClick={_handleClick}
+			className={'w-full relative flex items-center space-x-3 bg-white p-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer'}>
+			<Avatar user={user}/>
 
 			<div className={'min-w-0 flex-1'}>
 				<div className={'focus:outline-none'}>
