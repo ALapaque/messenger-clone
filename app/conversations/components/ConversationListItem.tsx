@@ -84,7 +84,7 @@ export default function ConversationListItem({conversation,selected}: Conversati
 					<span className="absolute inset-0" aria-hidden="true" />
 					<div className="flex justify-between items-center mb-1">
 						<p className="text-md font-medium text-gray-900">
-							{conversation.name}
+							{conversation.name || otherUser?.name || 'Unnamed'}
 						</p>
 						{lastMessage?.createdAt && (
 							<p
