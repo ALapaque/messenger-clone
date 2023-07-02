@@ -7,12 +7,14 @@ import Link from "next/link";
 import {HiChevronLeft, HiEllipsisHorizontal} from "react-icons/hi2";
 import Avatar from "@messenger-clone/app/components/Avatar";
 import ProfileDrawer from "@messenger-clone/app/conversations/[conversationId]/components/ProfileDrawer";
+import {useRouter} from "next/navigation";
 
 interface ConversationHeaderProps {
 	conversation: Conversation & { users: User[] }
 }
 
 export default function ConversationHeader({conversation}: ConversationHeaderProps) {
+	const router = useRouter()
 	const otherUser = useOtherUser(conversation)
 	const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
 
@@ -22,7 +24,7 @@ export default function ConversationHeader({conversation}: ConversationHeaderPro
 		}
 
 		return 'Active'
-	}, []);
+	}, [conversation.isGroup, conversation.users.length]);
 
 	return (
 		<>
@@ -36,8 +38,9 @@ export default function ConversationHeader({conversation}: ConversationHeaderPro
 				<div className={'flex gap-3 items-center'}>
 					<Link
 						href={'/conversations'}
-						className={'lg:hidden block text-sky-500 hover:text-sky-600 transition cursor-pointer'}>
-						<HiChevronLeft size={32}/>
+						onClick={() => router.back()}
+						className={'lg:hidden block text-gray-500 cursor-pointer hover:text-gray-600 transition'}>
+						<HiChevronLeft size={24}/>
 					</Link>
 
 					<Avatar user={otherUser}/>
