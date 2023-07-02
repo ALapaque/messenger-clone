@@ -6,6 +6,7 @@ import axios from "axios";
 import {HiPaperAirplane, HiPhoto} from "react-icons/hi2";
 import ConversationMessageInput
 	from "@messenger-clone/app/conversations/[conversationId]/components/ConversationMessageInput";
+import {CldUploadButton} from "next-cloudinary";
 
 export default function ConversationForm() {
 	const {conversationId} = useConversation()
@@ -24,14 +25,24 @@ export default function ConversationForm() {
 		})
 	}
 
+	const _handleUpload = (result: any) => {
+		axios.post('/api/messages', {
+			image: result?.info?.secure_url,
+			conversationId
+		})
+	}
+
 	return (
 		<div className={'py-4 px-4 bg-white border-t flex items-center gap-2 lg:gap-4 w-full'}>
-			<button
-				onClick={() => {
-				}}
-				className={'text-sky-500 cursor-pointer hover:text-sky-600 transition'}>
-				<HiPhoto size={30}/>
-			</button>
+			<CldUploadButton
+				options={{maxFiles: 1}}
+				onUpload={_handleUpload}
+				uploadPreset={'usvb8qme'}
+			>
+				<HiPhoto
+					className={'text-sky-500 cursor-pointer hover:text-sky-600 transition'}
+					size={30}/>
+			</CldUploadButton>
 
 			<form
 				onSubmit={handleSubmit(_handleSubmit)}

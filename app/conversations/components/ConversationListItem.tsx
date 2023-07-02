@@ -1,7 +1,7 @@
 import {FullConversationType} from "@messenger-clone/app/types";
 import clsx from "clsx";
 import Avatar from "@messenger-clone/app/components/Avatar";
-import {format} from "util";
+import { format } from "date-fns";
 import {useCallback, useMemo} from "react";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";

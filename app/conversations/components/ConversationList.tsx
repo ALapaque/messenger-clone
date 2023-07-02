@@ -26,8 +26,9 @@ export default function ConversationList({initialItems}: ConversationListProps) 
 			<div className={'px-5 w-full'}>
 				<div className={'flex w-full justify-between items-center'}>
 					<h3 className={'text-2xl font-bold text-neutral-800 py-4'}>Messages</h3>
-					<button className={'h-[40px] w-[40px] rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition'}>
-						<MdOutlineGroupAdd size={20} />
+					<button
+						className={'h-[40px] w-[40px] rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition'}>
+						<MdOutlineGroupAdd size={20}/>
 					</button>
 				</div>
 
