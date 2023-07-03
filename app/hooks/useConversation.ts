@@ -5,13 +5,17 @@ export default function useConversation() {
 	const params = useParams();
 
 	const conversationId = useMemo(() => {
-		return params?.conversationId || ''
-	}, [params]);
+		if (!params?.conversationId) {
+			return '';
+		}
+
+		return params.conversationId as string;
+	}, [params?.conversationId]);
 
 	const isOpen = useMemo(() => !!conversationId, [conversationId]);
 
 	return useMemo(() => ({
 		isOpen,
 		conversationId
-	}), [conversationId, isOpen]);
+	}), [isOpen, conversationId]);
 }
