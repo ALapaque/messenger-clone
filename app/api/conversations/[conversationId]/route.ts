@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "@messenger-clone/app/libs/prismadb";
 import getCurrentUser from "@messenger-clone/app/actions/getCurrentUser";
+import {pusherServer} from "@messenger-clone/app/libs/pusher";
 
 interface IParams {
 	conversationId?: string;
@@ -38,6 +39,12 @@ export async function DELETE(
 					hasSome: [currentUser.id]
 				},
 			},
+		});
+
+		existingConversation.users.forEach((user) => {
+			if (user.id) {
+				pusherServer.trigger(user.id, 'conversation:remove', existingConversation);
+			}
 		});
 
 		return NextResponse.json(deletedConversation)
