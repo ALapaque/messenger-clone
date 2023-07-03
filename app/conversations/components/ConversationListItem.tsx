@@ -6,6 +6,7 @@ import {useCallback, useMemo} from "react";
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import useOtherUser from "@messenger-clone/app/hooks/useOtherUser";
+import AvatarGroup from "@messenger-clone/app/components/AvatarGroup";
 
 interface ConversationListItemProps {
 	conversation: FullConversationType,
@@ -75,7 +76,7 @@ export default function ConversationListItem({conversation,selected}: Conversati
 			)}
 		>
 			{conversation.isGroup ? (
-				<></>
+				<AvatarGroup users={conversation.users} />
 			) : (
 				<Avatar user={otherUser} />
 			)}

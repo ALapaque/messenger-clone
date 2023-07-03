@@ -2,12 +2,12 @@
 
 import {useSession} from "next-auth/react";
 import {FullMessageType} from "@messenger-clone/app/types";
-import {useMemo} from "react";
+import {useMemo, useState} from "react";
 import clsx from "clsx";
-import {cs} from "date-fns/locale";
 import Avatar from "@messenger-clone/app/components/Avatar";
 import {format} from "date-fns";
 import Image from "next/image";
+import ImageModal from "@messenger-clone/app/components/modals/ImageModal";
 
 interface ConversationMessageItemProps {
 	message: FullMessageType;
@@ -16,6 +16,7 @@ interface ConversationMessageItemProps {
 
 export default function ConversationMessageItem({message, isLast}: ConversationMessageItemProps) {
 	const session = useSession()
+	const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false)
 	const isOwn = session?.data?.user?.email === message?.sender?.email
 
 	const seenList = useMemo(() => {
@@ -23,7 +24,7 @@ export default function ConversationMessageItem({message, isLast}: ConversationM
 			.filter((user) => user.email !== session?.data?.user?.email)
 			.map((user) => user.name)
 			.join(", ")
-	}, [message]);
+	}, [message.seen, session?.data?.user?.email]);
 
 	const containerClassName = clsx(
 		"flex gap-3 p-4",
@@ -58,9 +59,15 @@ export default function ConversationMessageItem({message, isLast}: ConversationM
 				</div>
 
 				<div className={messageClassName}>
+					<ImageModal
+						src={message.image}
+						isOpen={isImageModalOpen}
+						onClose={() => setIsImageModalOpen(false)}
+					/>
 					{message.image
 						? (
 							<Image
+								onClick={() => setIsImageModalOpen(true)}
 								src={message.image}
 								alt={'chat image'}
 								height={288}
