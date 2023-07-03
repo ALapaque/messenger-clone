@@ -67,7 +67,7 @@ export async function POST(
 		});
 
 		// Update all connections with new seen
-		await pusherServer.trigger(currentUser.id, 'conversation:update', {
+		await pusherServer.trigger(currentUser.email, 'conversation:update', {
 			id: conversationId,
 			messages: [updatedMessage]
 		});

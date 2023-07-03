@@ -9,6 +9,7 @@ import {IoClose, IoTrash} from "react-icons/io5";
 import Avatar from "@messenger-clone/app/components/Avatar";
 import DeleteConversationModal from "@messenger-clone/app/components/modals/DeleteConversationModal";
 import AvatarGroup from "@messenger-clone/app/components/AvatarGroup";
+import useActiveList from "@messenger-clone/app/hooks/useActiveList";
 
 interface ProfileDrawerProps {
 	isOpen: boolean;
@@ -20,6 +21,8 @@ interface ProfileDrawerProps {
 export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDrawerProps) {
 	const otherUser = useOtherUser(conversation)
 	const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false)
+	const { members } = useActiveList();
+	const isActive = members.indexOf(otherUser?.email!) !== -1;
 
 	const joinedDate = useMemo(() => {
 		return format(new Date(otherUser.createdAt), 'PP')
@@ -31,11 +34,11 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 
 	const statusText = useMemo(() => {
 		if (conversation.isGroup) {
-			return `${conversation.users.length} members`
+			return `${conversation.users.length} members`;
 		}
 
-		return 'Active'
-	}, [conversation])
+		return isActive ? 'Active' : 'Offline'
+	}, [conversation, isActive]);
 
 	return (
 		<>

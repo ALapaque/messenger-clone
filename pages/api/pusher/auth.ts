@@ -1,22 +1,23 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import { getServerSession } from "next-auth";
+import {authOptions} from "@messenger-clone/app/api/auth/[...nextauth]/authOptions";
 import {pusherServer} from "@messenger-clone/app/libs/pusher";
-import getCurrentUser from "@messenger-clone/app/actions/getCurrentUser";
 
 
 export default async function handler(
 	request: NextApiRequest,
 	response: NextApiResponse
 ) {
-	const currentUser = await getCurrentUser()
+	const session = await getServerSession(request, response, authOptions);
 
-	if (!currentUser?.id) {
+	if (!session?.user?.email) {
 		return response.status(401);
 	}
 
 	const socketId = request.body.socket_id;
 	const channel = request.body.channel_name;
 	const data = {
-		user_id: currentUser.id,
+		user_id: session.user.email,
 	};
 
 	const authResponse = pusherServer.authorizeChannel(socketId, channel, data);

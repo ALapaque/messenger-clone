@@ -8,6 +8,7 @@ import {HiChevronLeft, HiEllipsisHorizontal} from "react-icons/hi2";
 import Avatar from "@messenger-clone/app/components/Avatar";
 import ProfileDrawer from "@messenger-clone/app/conversations/[conversationId]/components/ProfileDrawer";
 import {useRouter} from "next/navigation";
+import useActiveList from "@messenger-clone/app/hooks/useActiveList";
 
 interface ConversationHeaderProps {
 	conversation: Conversation & { users: User[] }
@@ -15,16 +16,18 @@ interface ConversationHeaderProps {
 
 export default function ConversationHeader({conversation}: ConversationHeaderProps) {
 	const router = useRouter()
-	const otherUser = useOtherUser(conversation)
-	const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
+	const otherUser = useOtherUser(conversation);
+	const [drawerOpen, setDrawerOpen] = useState(false);
 
+	const { members } = useActiveList();
+	const isActive = members.indexOf(otherUser?.email!) !== -1;
 	const statusText = useMemo(() => {
 		if (conversation.isGroup) {
-			return `${conversation.users.length} members`
+			return `${conversation.users.length} members`;
 		}
 
-		return 'Active'
-	}, [conversation.isGroup, conversation.users.length]);
+		return isActive ? 'Active' : 'Offline'
+	}, [conversation, isActive]);
 
 	return (
 		<>
