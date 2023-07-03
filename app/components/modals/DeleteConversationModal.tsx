@@ -16,7 +16,7 @@ interface ConfirmModalProps {
 	onClose(): void;
 }
 
-export default function DeleteConversastionModal({isOpen, onClose}: ConfirmModalProps) {
+export default function DeleteConversationModal({isOpen, onClose}: ConfirmModalProps) {
 	const router = useRouter()
 	const {conversationId} = useConversation()
 	const [isLoading, setIsLoading] = useState<boolean>(false)
