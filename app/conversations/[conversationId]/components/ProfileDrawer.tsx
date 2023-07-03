@@ -8,6 +8,7 @@ import {Dialog, Transition} from "@headlessui/react";
 import {IoClose, IoTrash} from "react-icons/io5";
 import Avatar from "@messenger-clone/app/components/Avatar";
 import Modal from "@messenger-clone/app/components/modals";
+import DeleteConversastionModal from "@messenger-clone/app/components/modals/DeleteConversastionModal";
 
 interface ProfileDrawerProps {
 	isOpen: boolean;
@@ -19,7 +20,7 @@ interface ProfileDrawerProps {
 
 export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDrawerProps) {
 	const otherUser = useOtherUser(conversation)
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+	const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false)
 
 	const joinedDate = useMemo(() => {
 		return format(new Date(otherUser.createdAt), 'PP')
@@ -39,13 +40,9 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 
 	return (
 		<>
-			<Modal
-				isOpen={isModalOpen}
-				onClose={() => setIsModalOpen(false)}>
-				<div className={'bg-white p-5'}>
-					<p>Hello modal</p>
-				</div>
-			</Modal>
+			<DeleteConversastionModal
+				isOpen={isConfirmOpen}
+				onClose={() => setIsConfirmOpen(false)} />
 
 			<Transition.Root show={isOpen} as={Fragment}>
 				<Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -103,7 +100,7 @@ export default function ProfileDrawer({isOpen, onClose, conversation}: ProfileDr
 													<div className="flex gap-10 my-8">
 														<button
 															type={'button'}
-															onClick={() => setIsModalOpen(true)}
+															onClick={() => setIsConfirmOpen(true)}
 															className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75">
 															<div
 																className="w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center">

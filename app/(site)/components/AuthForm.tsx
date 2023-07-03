@@ -2,7 +2,7 @@
 
 import {useCallback, useEffect, useState} from "react";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
-import Input from "@messenger-clone/app/components/fields/input/Input";
+import Input from "@messenger-clone/app/components/fields/Input";
 import Button from "@messenger-clone/app/components/buttons";
 import {BsGithub, BsGoogle} from "react-icons/bs";
 import AuthSocialButton from "@messenger-clone/app/(site)/components/AuthSocialButton";
