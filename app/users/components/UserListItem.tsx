@@ -3,7 +3,7 @@ import {useRouter} from "next/navigation";
 import {useCallback, useState} from "react";
 import axios from "axios";
 import Avatar from "@messenger-clone/app/components/Avatar";
-import {format} from "util";
+import LoadingModal from "@messenger-clone/app/components/modals/LoadingModal";
 
 interface UserListItemProps {
 	user: User
@@ -26,18 +26,22 @@ export default function UserListItem({user}: UserListItemProps) {
 	}, [user, router])
 
 	return (
-		<div
-			onClick={_handleClick}
-			className={'w-full relative flex items-center space-x-3 bg-white p-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer'}>
-			<Avatar user={user}/>
+		<>
+			{isLoading && (<LoadingModal/>)}
 
-			<div className={'min-w-0 flex-1'}>
-				<div className={'focus:outline-none'}>
-					<div className={'flex justify-between items-center mb-1'}>
-						<p className={'tex-sm font-medium text-gray-900'}>{user.name}</p>
+			<div
+				onClick={_handleClick}
+				className={'w-full relative flex items-center space-x-3 bg-white p-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer'}>
+				<Avatar user={user}/>
+
+				<div className={'min-w-0 flex-1'}>
+					<div className={'focus:outline-none'}>
+						<div className={'flex justify-between items-center mb-1'}>
+							<p className={'tex-sm font-medium text-gray-900'}>{user.name}</p>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
