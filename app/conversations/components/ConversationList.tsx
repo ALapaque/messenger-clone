@@ -63,13 +63,15 @@ export default function ConversationList({initialItems, users, currentUser}: Con
 				return [...current.filter((conv) => conv.id !== conversation.id)]
 			});
 
-			router.push('/conversations')
+			if (conversationId === conversation.id) {
+				router.push('/conversations')
+			}
 		}
 
 		pusherClient.bind('conversation:update', updateHandler)
 		pusherClient.bind('conversation:new', newHandler)
 		pusherClient.bind('conversation:remove', removeHandler)
-	}, [pusherKey, router]);
+	}, [conversationId, pusherKey, router]);
 
 	return (
 		<>
